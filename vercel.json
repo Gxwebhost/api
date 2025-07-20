@@ -1,0 +1,6 @@
+{
+  "env": {
+    "WEBHOOK_URL": "@your-webhook-url",
+    "SECRET_KEY": "@your-secret-key"
+  }
+}
