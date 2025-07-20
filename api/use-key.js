@@ -1,5 +1,4 @@
 // /api/use-key.js
-
 const keys = global.keys || (global.keys = new Map());
 
 export default async function handler(req, res) {
@@ -13,12 +12,12 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: "Key expired" });
   }
 
-  // Mark as used and delete
   entry.used = true;
   keys.delete(key);
 
-  // Forward the request to your actual webhook
-  const webhookURL = "https://your.discord.webhook/here";
+  const webhookURL = process.env.DISCORD_WEBHOOK_URL;
+  if (!webhookURL) return res.status(500).json({ error: "Missing webhook env" });
+
   const body = req.body;
 
   const forward = await fetch(webhookURL, {
